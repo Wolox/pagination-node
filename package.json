@@ -1,0 +1,71 @@
+{
+  "name": "@wolox/pagination-node",
+  "version": "0.0.1",
+  "description": "Pagination package for an API Node app. Parameters of pagination, custom output format, custom configuration, adaptable to different kind of contents",
+  "engines": {
+    "npm": ">= 4.0.0",
+    "node": "12.16.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=testing jest --silent --runInBand --forceExit --detectOpenHandles --passWithNoTests",
+    "test-debug": "NODE_ENV=testing node --inspect node_modules/.bin/jest --runInBand --forceExit --detectOpenHandles --passWithNoTests",
+    "eslint-check": "eslint --print-config .eslintrc.js --ignore-pattern ./.eslintrc.js | eslint-config-prettier-check",
+    "lint": "eslint \"**/*.js\" --ignore-pattern ./.eslintrc.js",
+    "lint-diff": "git diff --name-only --cached --relative | grep \\\\.js$ | xargs eslint",
+    "lint-fix": "eslint \"**/*.js\" --fix --ignore-pattern ./.eslintrc.js",
+    "outdated": "npm outdated --depth 0",
+    "pretest": "npm run lint",
+    "coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wolox/pagination-node.git"
+  },
+  "author": "Wolox",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Wolox/pagination-node/issues"
+  },
+  "cacheDirectories": [
+    "node_modules"
+  ],
+  "keywords": [
+    "node-pagination",
+    "node",
+    "nodejs",
+    "wolox",
+    "pagination"
+  ],
+  "homepage": "https://github.com/Wolox/pagination-node#readme",
+  "devDependencies": {
+    "ajv": "^5.5.2",
+    "eslint": "^5.9.0",
+    "eslint-config-prettier": "^6.6.0",
+    "eslint-config-wolox": "^3.0.2",
+    "eslint-config-wolox-node": "^2.2.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^3.1.0",
+    "jest": "^24.8.0",
+    "lint-staged": "^9.4.3",
+    "prettier": "^1.19.1",
+    "prettier-eslint": "^8.8.2",
+    "supertest": "^4.0.2",
+    "umzug": "^2.1.0",
+    "faker": "^4.1.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/test/**/*.spec.js?(x)"
+    ],
+    "clearMocks": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint",
+      "pre-push": "npm test"
+    }
+  }
+}
