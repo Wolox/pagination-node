@@ -10,14 +10,17 @@ const testUrls = {
   index: '/index',
   indexWithParams: '/index_with_params',
   indexPageException: '/index_page_exception',
-  indexLimitException: '/index_limit_exception'
+  indexLimitException: '/index_limit_exception',
+  indexContentTypeException: '/index_content_type_exception',
+  indexWithInvalidReqObject: '/index_with_invalid_req_object'
 };
 const makeRequest = (url, content, method = 'get') => request(createServer(content))[method](url);
 
 describe.each`
-  description                             | testUrl                     | minSlice | maxSlice
-  ${'default pagination without options'} | ${testUrls.index}           | ${0}     | ${25}
-  ${'custom pagination with options'}     | ${testUrls.indexWithParams} | ${10}    | ${15}
+  description                             | testUrl                               | minSlice | maxSlice
+  ${'default pagination without options'} | ${testUrls.index}                     | ${0}     | ${25}
+  ${'custom pagination with options'}     | ${testUrls.indexWithParams}           | ${10}    | ${15}
+  ${'pagination with invalid req object'} | ${testUrls.indexWithInvalidReqObject} | ${10}    | ${15}
 `('Request $description passed', ({ description, testUrl, minSlice, maxSlice }) => {
   let fakeModels = undefined;
   let response = undefined;
@@ -33,6 +36,10 @@ describe.each`
     pagParams = description.includes('default')
       ? defaultPagParams(response.request)
       : customPagParams(response.request);
+    if (testUrl === '/index_with_invalid_req_object') {
+      pagParams.next_page_url = null;
+      pagParams.previous_page_url = null;
+    }
   });
 
   it('responds with proper pagination params', () => {
@@ -55,16 +62,14 @@ describe.each`
 
 describe('Request pagination with invalid params', () => {
   it.each`
-    param      | testUrl
-    ${'page'}  | ${testUrls.indexPageException}
-    ${'limit'} | ${testUrls.indexLimitException}
-  `(
-    'responds with an error when an invalid $param is sent in options to paginate method',
-    async ({ testUrl }) => {
-      const response = await makeRequest(testUrl);
-      expect(response.statusCode).toBe(500);
-      expect(response.serverError).toBe(true);
-      expect(response.error).toBeInstanceOf(Error);
-    }
-  );
+    param        | testUrl
+    ${'page'}    | ${testUrls.indexPageException}
+    ${'limit'}   | ${testUrls.indexLimitException}
+    ${'content'} | ${testUrls.indexContentTypeException}
+  `('responds with an error when an invalid $param is sent to paginate method', async ({ testUrl }) => {
+    const response = await makeRequest(testUrl);
+    expect(response.statusCode).toBe(500);
+    expect(response.serverError).toBe(true);
+    expect(response.error).toBeInstanceOf(Error);
+  });
 });
