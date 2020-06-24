@@ -6,6 +6,10 @@ exports.customPagParams = request => ({
   previous_page: 2,
   current_page: 3,
   next_page: 4,
-  previous_page_url: `${request.url}?page=2`,
-  next_page_url: `${request.url}?page=4`
+  previous_page_link: request.url.includes('?')
+    ? request.url.replace(/page=./, 'page=2')
+    : `${request.url}?page=2`,
+  next_page_link: request.url.includes('?')
+    ? request.url.replace(/page=./, 'page=4')
+    : `${request.url}?page=4`
 });
