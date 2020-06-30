@@ -45,6 +45,7 @@ describe.each`
     expect(responseBody.next_page).toBe(pagParams.next_page);
     expect(responseBody.previous_page_url).toBe(pagParams.previous_page_url);
     expect(responseBody.next_page_url).toBe(pagParams.next_page_url);
+    expect(responseBody.limit).toBe(pagParams.limit);
   });
 
   it('responds with a valid page', () => {

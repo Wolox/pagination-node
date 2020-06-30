@@ -1,6 +1,7 @@
 exports.customPagParams = request => ({
   page_count: 5,
   count: 5,
+  limit: 5,
   total_count: 30,
   total_pages: Math.ceil(30 / 5),
   previous_page: 2,
