@@ -36,5 +36,23 @@ exports.testScenarios = [
         res.write(JSON.stringify(error));
       }
     }
+  },
+  {
+    testUrl: '/index_content_type_exception',
+    action: (req, res, content) => {
+      try {
+        nodePagination.paginate(content, req, {});
+      } catch (error) {
+        res.writeHeader(500, { 'Content-Type': 'application/json' });
+        res.write(JSON.stringify(error));
+      }
+    }
+  },
+  {
+    testUrl: '/index_with_invalid_req_object',
+    action: (req, res, content) => {
+      res.writeHeader(200, { 'Content-Type': 'application/json' });
+      res.write(JSON.stringify(nodePagination.paginate(content, undefined, { limit: 5, page: 3 })));
+    }
   }
 ];
