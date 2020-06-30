@@ -3,6 +3,7 @@ const nodePagination = require('../..');
 exports.defaultPagParams = request => ({
   page_count: nodePagination.defaultLimit,
   count: nodePagination.defaultLimit,
+  limit: 25,
   total_count: 30,
   total_pages: Math.ceil(30 / nodePagination.defaultLimit),
   previous_page: null,
