@@ -36,5 +36,12 @@ exports.testScenarios = [
         res.write(JSON.stringify(error));
       }
     }
+  },
+  {
+    testUrl: '/index_query_params?page=3&limit=5',
+    action: (req, res, content) => {
+      res.writeHeader(200, { 'Content-Type': 'application/json' });
+      res.write(JSON.stringify(nodePagination.paginate(content, req, { limit: 5, page: 3 })));
+    }
   }
 ];

@@ -9,6 +9,6 @@ exports.defaultPagParams = request => ({
   previous_page: null,
   current_page: nodePagination.defaultPage,
   next_page: 2,
-  previous_page_url: null,
-  next_page_url: `${request.url}?page=2`
+  previous_page_link: null,
+  next_page_link: `${request.url}?page=2`
 });

@@ -9,15 +9,17 @@ const factory = require('../factory/fake_model');
 const testUrls = {
   index: '/index',
   indexWithParams: '/index_with_params',
+  indexQueryParams: '/index_query_params?page=3&limit=5',
   indexPageException: '/index_page_exception',
   indexLimitException: '/index_limit_exception'
 };
 const makeRequest = (url, content, method = 'get') => request(createServer(content))[method](url);
 
 describe.each`
-  description                             | testUrl                     | minSlice | maxSlice
-  ${'default pagination without options'} | ${testUrls.index}           | ${0}     | ${25}
-  ${'custom pagination with options'}     | ${testUrls.indexWithParams} | ${10}    | ${15}
+  description                              | testUrl                      | minSlice | maxSlice
+  ${'default pagination without options'}  | ${testUrls.index}            | ${0}     | ${25}
+  ${'custom pagination with options'}      | ${testUrls.indexWithParams}  | ${10}    | ${15}
+  ${'custom pagination with query params'} | ${testUrls.indexQueryParams} | ${10}    | ${15}
 `('Request $description passed', ({ description, testUrl, minSlice, maxSlice }) => {
   let fakeModels = undefined;
   let response = undefined;
@@ -43,8 +45,8 @@ describe.each`
     expect(responseBody.total_pages).toBe(pagParams.total_pages);
     expect(responseBody.previous_page).toBe(pagParams.previous_page);
     expect(responseBody.next_page).toBe(pagParams.next_page);
-    expect(responseBody.previous_page_url).toBe(pagParams.previous_page_url);
-    expect(responseBody.next_page_url).toBe(pagParams.next_page_url);
+    expect(responseBody.previous_page_link).toBe(pagParams.previous_page_link);
+    expect(responseBody.next_page_link).toBe(pagParams.next_page_link);
     expect(responseBody.limit).toBe(pagParams.limit);
   });
 
