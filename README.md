@@ -10,7 +10,7 @@ Pagination-Node is able to slice the entire collection based on the `limit` and 
 
 If no `page` or `limit` options are sent to the `paginate` method, the package will set those values to It's default ones.
 
-It's also posible to change the default values of the `page` and `limit` options to any desired value, in such a way that the package will always paginate with the desired behaviour by defaultl without having to specify `page` and `limit` options everytime you use it.
+It's also possible to change the default values of the `page` and `limit` options to any desired value, in such a way that the package will always paginate with the desired behavior by default without having to specify `page` and `limit` options every time you use it.
 
 
 ## Installing
@@ -21,19 +21,20 @@ $ npm i @wolox/pagination-node
 
 ## Glossary
 * `page` param: The page number that is being requested.
-* `limit` param: The amount of objects needed in the page.
+* `limit` param: The max amount of objects needed in the page.
 * `content` - `collection`: This is the group of objects you want to paginate. It should be an Array of objects.
 * `request`: This is the `IncomingMessage` object you'll have to pass along with the other options needed to paginate.
 * `pagination params`: These are the params that accompany the page itself (resulting objects), and are strictly related with the mentioned page that was requested. So far, the default pagination params are:
     - `page: Array` (The resulting paginated objects)
-    - `count: Number` (The total ammount of objects in the current page)
-    - `total_pages: Number` (Describes the total ammount of pages calculated, based in the total of objects sent to the paginator, and the requested limit)
+    - `count: Number` (The total amount of objects in the current page)
+    - `limit: Number` (The max amount of objects that will be present in the page)
+    - `total_pages: Number` (Describes the total amount of pages calculated, based in the total of objects sent to the paginator, and the requested limit)
     - `total_count: Number` (The total amount of objects that the paginator received)
     - `previous_page: Number` (The number of the previous page. Will be null if there's nothing to show)
     - `current_page: Number` (The number of the current page that is being shown)
     - `next_page: Number` (The number of the next page. Will be null if there's nothing to show)
-    - `previous_page_url: String url` (A string url that leads to the previous page. Will be null if there's nothing to show)
-    - `next_page_url: String url` (A string url that leads to the next page. Will be null if there's nothing to show)
+    - `previous_page_link: String` (A string url that leads to the previous page. Will be null if there's nothing to show)
+    - `next_page_link: String` (A string url that leads to the next page. Will be null if there's nothing to show)
 
 
 ## Usage
@@ -80,7 +81,7 @@ If you want to stablish different option values as defaults all you have to do i
 nodePagination.defaultLimit = NEW_LIMIT;
 nodePagination.defaultPage = NEW_PAGE;
 ```
-It's recommended to do this on a setup/startup step of the applicacion that requires the tool, for example requiring it and changing its default values in a script or middleware that runs before the controller action that render the result using pagination-node
+It's recommended to do this on a setup/startup step of the application that requires the tool, for example requiring it and changing its default values in a script or middleware that runs before the controller action that render the result using pagination-node
 
 
 
