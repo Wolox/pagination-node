@@ -1,6 +1,6 @@
 {
   "name": "@wolox/pagination-node",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Pagination package for an API Node app. Parameters of pagination, custom output format, custom configuration, adaptable to different kind of contents",
   "engines": {
     "npm": ">= 4.0.0",
