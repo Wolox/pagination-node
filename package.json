@@ -53,7 +53,7 @@
     "prettier-eslint": "^8.8.2",
     "supertest": "^4.0.2",
     "umzug": "^2.1.0",
-    "faker": "^4.1.0"
+    "faker": "^5.4.0"
   },
   "jest": {
     "testEnvironment": "node",
